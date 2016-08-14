@@ -6,7 +6,7 @@ from urlparse import urljoin
 class ArgCalendarSpider(scrapy.Spider):
 	name = 'ArgCalendar'
 	allowed_domains = ["www.supremecourt.gov"]
-	start_urls = ["http://www.supremecourt.gov/oral_arguments/argument_calendars.aspx"]
+	start_urls = ["http://www.supremecourt.gov/oral_arguments/argument_calendars2015.aspx"]
 
 	'''
 	Extracts all urls of monthly calendars for spider to crawl through
@@ -26,13 +26,13 @@ class ArgCalendarSpider(scrapy.Spider):
 		calendar['link'] = response.url
 		term = response.xpath('//table/tr[1]/td/p[4]/b/span/text()')[0].extract()
 		calendar['term'] = str(' '.join(term.split()))
-		oct_thru_jan = ['http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalOctober2015.html',
-		'http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalNovember2015.html',
-		'http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalDecember2015.html',
-		'http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalJanuary2016.html']
-		feb_thru_march = ['http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalFebruary2016.html',
-		'http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalMarch2016.html']
-		april = ['http://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalApril2016.html']
+		oct_thru_jan = ['https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalOctober2015.html',
+		'https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalNovember2015.html',
+		'https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalDecember2015.html',
+		'https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalJanuary2016.html']
+		feb_thru_march = ['https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalFebruary2016.html',
+		'https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalMarch2016.html']
+		april = ['https://www.supremecourt.gov/oral_arguments/calendars/MonthlyArgumentCalApril2016.html']
 
 		if response.url in oct_thru_jan:
 			calendar['cases'] = self.oct_thru_jan_parse_cases(response)
